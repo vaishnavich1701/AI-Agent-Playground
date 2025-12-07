@@ -48,7 +48,6 @@ news_agent = Agent(
     ),
     model=OpenAIChat(id="gpt-4o"),
     tools=[DuckDuckGoTools()],
-    show_tool_calls=False,
     markdown=False,
 )
 
@@ -57,13 +56,14 @@ finance_agent = Agent(
     name="Finance Agent",
     description=(
         "You are an expert finance analyst providing detailed stock insights.",
-        "Return your output in plain Markdown format without any decorative border characters (such as ┏, ┗, ┃, ━, or ┛)."
+        "Return your output in plain Markdown format."
     ),
     model=OpenAIChat(id="gpt-4o"),
-    tools=[YFinanceTools(stock_price=True, analyst_recommendations=True, company_info=True)],
-    show_tool_calls=False,
+    tools=[YFinanceTools()],  # <-- Remove arguments
     markdown=False,
 )
+
+
 
 # Image agent using Dall-e 
 image_agent = Agent(
@@ -87,7 +87,6 @@ travel_agent = Agent(
     ),
     model=OpenAIChat(id="gpt-4o"),
     tools=[DuckDuckGoTools()],
-    show_tool_calls=False,
     markdown=False,
     instructions=[
         "Plan a detailed travel itinerary for the given destination.",
@@ -182,7 +181,6 @@ The agent will eventually be instantiated using the following:
         description=description_gpt,
         model=OpenAIChat(id="gpt-4o"),
         tools=[tool_gpt],
-        show_tool_calls=False,
         markdown=False,
    )
 
@@ -266,7 +264,6 @@ async def run_custom_agent(custom_endpoint: str, query: str):
             description=doc["description_gpt"],
             model=OpenAIChat(id="gpt-4o"),
             tools=[tool_instance],
-            show_tool_calls=False,
             markdown=False
         )
         
